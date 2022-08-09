@@ -24,7 +24,7 @@ const App = () => {
       write: false,
       plugins: [unpkgPathPlugin()],
     });
-    setCode(result.outputFiles[0]);
+    setCode(result.outputFiles[0].text);
   };
 
   useEffect(() => {
