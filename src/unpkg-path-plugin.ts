@@ -32,7 +32,7 @@ export const unpkgPathPlugin = () => {
           return {
             loader: 'jsx',
             contents: `
-              import React from 'react';
+              import React from 'react-select';
               console.log(React);
             `,
           };
