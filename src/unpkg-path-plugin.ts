@@ -32,8 +32,8 @@ export const unpkgPathPlugin = () => {
           return {
             loader: 'jsx',
             contents: `
-              message = require('lodash');
-              console.log(message);
+              import React from 'react';
+              console.log(React);
             `,
           };
         }
