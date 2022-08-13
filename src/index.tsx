@@ -1,8 +1,9 @@
 import * as esbuild from 'esbuild-wasm';
 import ReactDOM from 'react-dom';
 import { useEffect, useState, useRef } from 'react';
-import { unpkgPathPlugin } from './unpkg-path-plugin';
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import localForage from 'localforage';
+import { fetchPlugin } from './plugins/fetch-plugin'
 
 
 (async () => {
@@ -32,7 +33,7 @@ const App = () => {
       entryPoints: ['index.js'],
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin(input)],
+      plugins: [unpkgPathPlugin(), fetchPlugin(input)],
       define: {
         'process.env.NODE_ENV': '"production"',
         global: 'window',
