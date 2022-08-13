@@ -20,17 +20,29 @@ export const fetchPlugin = (inputCode: string) => {
         }
         // Check to see if we already fetch this file 
         // and if it in the cache
-        const cachedResult = await localForage.getItem<esbuild.OnLoadResult>(args.path)
-        // if it is , return immediately
-        if (cachedResult) {
-          return cachedResult;
-        }
+        // const cachedResult = await localForage.getItem<esbuild.OnLoadResult>(args.path)
+        // // if it is , return immediately
+        // if (cachedResult) {
+        //   return cachedResult;
+        // }
 
         const { data, request } = await axios.get(args.path);
-        // console.log(data, request);
+
+        const escaped = data
+          .replace(/\n/g, '')
+          .replace(/"/g, '\\"')
+          .replace(/'/g, "\\'")
+        const fileType = args.path.match(/.css$/) ? 'css' : 'jsx'
+
+        const contents = fileType === 'css' ?
+          `const style = document.createElement('style');
+           style.innerText = '${escaped}';
+           document.head.appendChild(style);
+           ` : data;
+
         const result: esbuild.OnLoadResult = {
           loader: 'jsx',
-          contents: data,
+          contents,
           resolveDir: new URL('./', request.responseURL).pathname,
         };
         // store response in cache
