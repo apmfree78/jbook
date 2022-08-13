@@ -2,6 +2,18 @@ import * as esbuild from 'esbuild-wasm';
 import ReactDOM from 'react-dom';
 import { useEffect, useState, useRef } from 'react';
 import { unpkgPathPlugin } from './unpkg-path-plugin';
+
+
+import localForage from 'localforage';
+
+
+(async () => {
+  await localForage.setItem('color', 'red');
+  const color = await localForage.getItem('color')
+
+  console.log(color);
+})()
+
 const App = () => {
   const ref = useRef<any>();
   const [input, setInput] = useState('');
