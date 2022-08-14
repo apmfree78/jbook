@@ -14,7 +14,7 @@ export const fetchPlugin = (inputCode: string) => {
         return { loader: 'jsx', contents: inputCode }
       })
 
-      build.onLoad({ filter: /.css$/ }, async (args: any) => {
+      build.onLoad({ filter: /.*/ }, async (args: any) => {
 
         // Check to see if we already fetch this file 
         // and if it in the cache
@@ -23,6 +23,9 @@ export const fetchPlugin = (inputCode: string) => {
         if (cachedResult) {
           return cachedResult;
         }
+      });
+
+      build.onLoad({ filter: /.css$/ }, async (args: any) => {
 
         const { data, request } = await axios.get(args.path);
 
@@ -48,19 +51,12 @@ export const fetchPlugin = (inputCode: string) => {
         return result;
       });
 
+
       build.onLoad({ filter: /.*/ }, async (args: any) => {
         // console.log('onLoad', args);
 
-        // Check to see if we already fetch this file 
-        // and if it in the cache
-        const cachedResult = await localForage.getItem<esbuild.OnLoadResult>(args.path)
-        // if it is , return immediately
-        if (cachedResult) {
-          return cachedResult;
-        }
 
         const { data, request } = await axios.get(args.path);
-
 
         const result: esbuild.OnLoadResult = {
           loader: 'jsx',
