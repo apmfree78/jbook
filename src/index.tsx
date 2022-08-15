@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { useEffect, useState, useRef } from 'react';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import localForage from 'localforage';
-import { fetchPlugin } from './plugins/fetch-plugin'
+import { fetchPlugin } from './plugins/fetch-plugin'; 
 
 
 (async () => {
@@ -40,9 +40,12 @@ const App = () => {
       },
     });
     setCode(result.outputFiles[0].text);
-    // run output code in browser
-    eval(result.outputFiles[0].text)
   };
+
+  
+const html = `
+<script>${code}</script>
+`;
 
   useEffect(() => {
     startService();
@@ -57,8 +60,10 @@ const App = () => {
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
+      <iframe srcDoc = {html} sandbox = "allow-scripts"/>
     </div>
   );
 };
+
 
 ReactDOM.render(<App />, document.querySelector('#root'));

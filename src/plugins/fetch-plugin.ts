@@ -1,7 +1,7 @@
 
 import * as esbuild from 'esbuild-wasm';
 import axios from 'axios';
-import localForage from 'localforage';
+import localForage from 'localforage'
 
 
 export const fetchPlugin = (inputCode: string) => {
