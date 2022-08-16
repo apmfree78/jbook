@@ -2,8 +2,7 @@ import * as esbuild from 'esbuild-wasm';
 import ReactDOM from 'react-dom';
 import { useEffect, useState, useRef } from 'react';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
-import localForage from 'localforage';
-import { fetchPlugin } from './plugins/fetch-plugin'; 
+import { fetchPlugin } from './plugins/fetch-plugin';
 
 
 const App = () => {
@@ -34,11 +33,11 @@ const App = () => {
       },
     });
     // setCode(result.outputFiles[0].text);
-    iframe.current.contentWindow.postMessage(result.outputFiles[0].text,'*');
+    iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
   };
 
-  
-const html = `
+
+  const html = `
 <html>
   <head></head>
   <body>
@@ -61,12 +60,13 @@ const html = `
     <div>
       <textarea
         value={input}
-        onChange={(e) => setInput(e.target.value)}></textarea>
+        onChange={(e) => setInput(e.target.value)}>
+      </textarea>
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
-      <iframe ref={iframe} srcDoc = {html} sandbox = "allow-scripts"/>
+      <iframe ref={iframe} srcDoc={html} sandbox="allow-scripts" />
     </div>
   );
 };
