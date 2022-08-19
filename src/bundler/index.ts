@@ -7,7 +7,7 @@ let service: esbuild.Service;
 
 export default async (rawCode: string) => {
   if (!service) {
-    await esbuild.startService({
+    service = await esbuild.startService({
       worker: true,
       wasmURL: 'https://unpkg.com/esbuild-wasm@0.8.27/esbuild.wasm',
     })
@@ -25,4 +25,4 @@ export default async (rawCode: string) => {
   });
   return result.outputFiles[0].text;
 };
-}
+
