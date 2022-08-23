@@ -14,9 +14,15 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
   let resizableProps: ResizableBoxProps;
 
   useEffect(() => {
+    let timer: any;
+    if (timer) {
+      clearTimeout(timer);
+    }
     const listener = () => {
-      setInnerWidth(window.innerWidth);
-      setInnerHeight(window.innerHeight);
+      timer = setTimeout(() => {
+        setInnerWidth(window.innerWidth);
+        setInnerHeight(window.innerHeight);
+      }, 100);
     }
     window.addEventListener('resize', listener);
 
