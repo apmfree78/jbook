@@ -21,8 +21,8 @@ const handleError = (err) => {
       };
 
       window.addEventListener('error',(event)=> {
-      event.preventDefault();
-      handleError(event.error);
+         event.preventDefault();
+         handleError(event.error);
       })
       window.addEventListener('message',(event) => {
       try {
