@@ -24,14 +24,32 @@ const reducer = produce((state: CellsState = iniatialState, action: Action) => {
     case ActionType.UPDATE_CELL:
       const { id, content } = action.payload;
       state.data[id].content = content;
-      break;
+      return state;
     case ActionType.DELETE_CELL:
       delete state.data[action.payload];
       state.order = state.order.filter((id) => id !== action.payload);
       // const index = state.order.findIndex((cell) => cell === action.payload);
       // state.order.splice(index, 1);
-      break;
+      return state;
     case ActionType.INSERT_CELL_BEFORE:
+      const cell: Cell = {
+        content: '',
+        type: action.payload.type,
+        id: randomId(),
+      };
+      // adding new cell to state
+      state.data[cell.id] = cell;
+
+      // find before Index
+      const beforeIndex = state.order.findIndex(
+        (id) => id === action.payload.id
+      );
+
+      if (beforeIndex < 0) {
+        state.order.push(cell.id);
+      } else {
+        state.order.splice(beforeIndex, 0, cell.id);
+      }
       return state;
     case ActionType.MOVE_CELL:
       const { direction } = action.payload;
@@ -41,14 +59,20 @@ const reducer = produce((state: CellsState = iniatialState, action: Action) => {
       // determine target index
       const targetIndex = direction === 'up' ? index - 1 : index + 1;
 
+      console.log('targetIndex');
+      console.log(targetIndex);
       // if targetIndex index is out of bounds, exit
       if (targetIndex < 0 || targetIndex > state.order.length - 1) return;
-
-      // swapping ids with targetIndex 
+      // swapping ids with targetIndex
       state.order[index] = state.order[targetIndex];
       state.order[targetIndex] = action.payload.id;
-      break;
+      return state;
+    default:
+      return state;
   }
 });
 
+const randomId = () => {
+  return Math.random().toString(36).substr(2, 5);
+};
 export default reducer;
