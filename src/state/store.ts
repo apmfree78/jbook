@@ -35,6 +35,6 @@ if (cellId) store.dispatch(updateCell(cellId, 'content for cell'));
 
 console.log(store.getState());
 
-if (cellId) store.dispatch(deleteCell(cellId));
+// if (cellId) store.dispatch(deleteCell(cellId));
 
 console.log(store.getState());
