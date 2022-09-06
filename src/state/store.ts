@@ -12,6 +12,14 @@ store.dispatch({
   type: ActionType.INSERT_CELL_BEFORE,
   payload: {
     id: null,
+    type: 'text',
+  },
+});
+
+store.dispatch({
+  type: ActionType.INSERT_CELL_BEFORE,
+  payload: {
+    id: null,
     type: 'code',
   },
 });
@@ -24,13 +32,21 @@ store.dispatch({
   },
 });
 
+store.dispatch({
+  type: ActionType.INSERT_CELL_BEFORE,
+  payload: {
+    id: null,
+    type: 'code',
+  },
+});
+
 console.log(store.getState());
 
 const cellId: string | undefined = store.getState().cells?.order[0];
 
 console.log(cellId);
 
-if (cellId) store.dispatch(moveCell(cellId, 'down'));
+// if (cellId) store.dispatch(moveCell(cellId, 'down'));
 if (cellId) store.dispatch(updateCell(cellId, 'content for cell'));
 
 console.log(store.getState());
