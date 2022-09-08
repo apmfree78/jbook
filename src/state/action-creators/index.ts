@@ -36,12 +36,12 @@ export const moveCell = (id: string, direction: Direction): MoveCellAction => {
   };
 };
 
-export const insertCellBefore = (
+export const insertCellAfter = (
   id: string | null,
   type: CellTypes
 ): InsertCellAction => {
   return {
-    type: ActionType.INSERT_CELL_BEFORE,
+    type: ActionType.INSERT_CELL_AFTER,
     payload: {
       id,
       type,
