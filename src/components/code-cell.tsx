@@ -26,20 +26,17 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   }, [cell.content]);
 
   return (
-    <>
-      <Resizable direction='vertical'>
-        <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
-          <Resizable direction='horizontal'>
-            <CodeEditor
-              initialValue={cell.content}
-              onChange={(value) => updateCell(cell.id, value)}
-            />
-          </Resizable>
-          <Preview code={code} err={err} />
-        </div>
-      </Resizable>
-      {/* <button onClick={onClick}>Submit</button> */}
-    </>
+    <Resizable direction='vertical'>
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
+        <Resizable direction='horizontal'>
+          <CodeEditor
+            initialValue={cell.content}
+            onChange={(value) => updateCell(cell.id, value)}
+          />
+        </Resizable>
+        <Preview code={code} err={err} />
+      </div>
+    </Resizable>
   );
 };
 
