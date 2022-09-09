@@ -24,12 +24,19 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 
     let code = [
       `
+        // function to show elements on preview 
+
         const show = (value) => {
-        if (typeof value === 'object'){
-          document.querySelector('#root').innerHTML = JSON.stringify(value);
-        } else {
-          document.querySelector('#root').innerHTML = value;
-        }
+          const root = document.querySelector('#root');
+
+          if (value.$$typeof && value.props) {
+            ReactDOM.render(value,root)
+          }
+          else if (typeof value === 'object'){
+            root.innerHTML = JSON.stringify(value);
+          } else {
+            root.innerHTML = value;
+          }
         };
       `,
     ];
