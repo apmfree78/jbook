@@ -54,4 +54,6 @@ export type Action =
   | MoveCellAction
   | DeleteCellAction
   | InsertCellAction
-  | UpdateCellAction | BundleStartAction | BundleCompleteAction
+  | UpdateCellAction
+  | BundleStartAction
+  | BundleCompleteAction;
