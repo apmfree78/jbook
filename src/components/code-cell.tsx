@@ -13,16 +13,43 @@ interface CodeCellProps {
 
 const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   const { updateCell, createBundle } = useActions();
+
+  // extracting bundle for current cell
   const bundle = useTypedSelector((state) => state.bundles[cell.id]);
 
-  useEffect(() => {
-    if (!bundle) createBundle(cell.id, cell.content);
-    const timer = setTimeout(async () => { }, 750);
+  // combining all code from previous cells up to current cell
+  const cumlativeCode = useTypedSelector((state) => {
+    const { data, order } = state.cells;
+    const orderedCells = order.map((id) => data[id]);
 
-    createBundle(cell.id, cell.content);
+    let code = [
+      `
+        const show = (value) => {
+        document.querySelector('#root').innerHTML = value;
+        };
+      `,
+    ];
+    for (const c of orderedCells) {
+      if (c.type === 'code') {
+        code.push(c.content);
+      }
+
+      if (c.id === cell.id) break;
+    }
+    return code;
+  });
+
+  // calling createBundle to transpile and bundle user code
+  // using debouncing to improve user experience and performance
+  useEffect(() => {
+    if (!bundle) createBundle(cell.id, cumlativeCode.join('\n'));
+    const timer = setTimeout(async () => {
+      createBundle(cell.id, cumlativeCode.join('\n'));
+    }, 750);
+
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cell.content, cell.id, createBundle]);
+  }, [cumlativeCode.join('\n'), cell.id, createBundle]);
 
   return (
     <Resizable direction='vertical'>
@@ -44,7 +71,6 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
             <Preview code={bundle.code} err={bundle.err} />
           )}
         </div>
-
       </div>
     </Resizable>
   );
