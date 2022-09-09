@@ -1,8 +1,7 @@
 import Resizable from './resizable';
 import Preview from './preview';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import CodeEditor from './code-editor';
-import bundle from '../bundler';
 import { Cell } from '../state';
 import { useActions } from '../hooks/use-actions';
 import { useTypedSelector } from '../hooks/use-typed-selector';
@@ -19,7 +18,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
     const timer = setTimeout(async () => { }, 750);
     createBundle(cell.id, cell.content);
     return () => clearTimeout(timer);
-  }, [cell.content, cell.id]);
+  }, [cell.content, cell.id, createBundle]);
 
   return (
     <Resizable direction='vertical'>
@@ -30,7 +29,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
             onChange={(value) => updateCell(cell.id, value)}
           />
         </Resizable>
-        <Preview code={bundle.code} err={bundle.err} />
+        {bundle && <Preview code={bundle.code} err={bundle.err} />}
       </div>
     </Resizable>
   );
