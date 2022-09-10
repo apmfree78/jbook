@@ -5,11 +5,6 @@ import { Provider } from 'react-redux';
 import { store } from './state';
 import CellList from './components/cell-list';
 
-const headlineStyle = {
-  textAlign: 'center',
-  marginTop: '20px',
-  marginBottom: '40px',
-};
 const App = () => {
   return (
     <Provider store={store}>
@@ -22,7 +17,7 @@ const App = () => {
             marginBottom: '40px',
           }}
         >
-          IntroSpective JavaScript Coding NoteBook
+          Indepth JavaScript Coding NoteBook
         </h1>
         <CellList />
       </div>
