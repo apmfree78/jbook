@@ -6,6 +6,7 @@ import CodeEditor from './code-editor';
 import { Cell } from '../state';
 import { useActions } from '../hooks/use-actions';
 import { useTypedSelector } from '../hooks/use-typed-selector';
+import { useCumlativeCode } from '../hooks/use-cumlative-code';
 
 interface CodeCellProps {
   cell: Cell;
@@ -16,51 +17,19 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 
   // extracting bundle for current cell
   const bundle = useTypedSelector((state) => state.bundles[cell.id]);
-
-  // combining all code from previous cells up to current cell
-  const cumlativeCode = useTypedSelector((state) => {
-    const { data, order } = state.cells;
-    const orderedCells = order.map((id) => data[id]);
-
-    let code = [
-      `
-        // function to show elements on preview 
-
-        const show = (value) => {
-          const root = document.querySelector('#root');
-
-          if (value.$$typeof && value.props) {
-            ReactDOM.render(value,root)
-          }
-          else if (typeof value === 'object'){
-            root.innerHTML = JSON.stringify(value);
-          } else {
-            root.innerHTML = value;
-          }
-        };
-      `,
-    ];
-    for (const c of orderedCells) {
-      if (c.type === 'code') {
-        code.push(c.content);
-      }
-
-      if (c.id === cell.id) break;
-    }
-    return code;
-  });
+  const cumlativeCode = useCumlativeCode(cell.id);
 
   // calling createBundle to transpile and bundle user code
   // using debouncing to improve user experience and performance
   useEffect(() => {
-    if (!bundle) createBundle(cell.id, cumlativeCode.join('\n'));
+    if (!bundle) createBundle(cell.id, cumlativeCode);
     const timer = setTimeout(async () => {
-      createBundle(cell.id, cumlativeCode.join('\n'));
+      createBundle(cell.id, cumlativeCode);
     }, 750);
 
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cumlativeCode.join('\n'), cell.id, createBundle]);
+  }, [cumlativeCode, cell.id, createBundle]);
 
   return (
     <Resizable direction='vertical'>
