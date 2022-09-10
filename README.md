@@ -19,8 +19,8 @@ The npm imports are handled with a custom ESBuild plugins that checks the input 
 
 Created a secure code sandbox by executing the transpiled and bundled code in an iframe, and submitting the code to that iframe using `postMessage`. There is an `EventListener` in the iframe that listens for the message, and once recieved, executes the code.
 
-## `Show()` function - display variables, objects, JSX, or even a React components to the preview screen
+## `show()` function - display variables, objects, JSX, or even a React components to the preview screen
 
-Created a custom `Show()` function that allows the user to output any variable, object, JSX, or React component to the preview screen.
+Created a custom `show()` function that allows the user to output any variable, object, JSX, or React component to the preview screen.
 
 ## Redux Store is used to handle all state management
