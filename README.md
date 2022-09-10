@@ -15,6 +15,16 @@ I use ESBuild to quickly transpile and bundle code inputted by user in code cell
 
 The npm imports are handled with a custom ESBuild plugins that checks the input code for import statements, and uses Unpkg to obtain the npm package. The npm packages are cached to the browser (using localForage), to improve performance.
 
+## Monaco Editor for inputting and editing code in Code Cells
+
+Implimented Monaco Editor to provide best user experience. It's the same editor used in VS Code. 
+
+This editor provides basic syntax error checking, and syntax coloring. 
+
+*Plus, I added a `Format` button at the upper right of each code cell that when clicked uses Prettier to format the user inputed code.*
+
+For the Markdown editor used react md editor. 
+
 ## Secure Code Sandbox using an iframe
 
 Created a secure code sandbox by executing the transpiled and bundled code in an iframe, and submitting the code to that iframe using `postMessage`. There is an `EventListener` in the iframe that listens for the message, and once recieved, executes the code.
