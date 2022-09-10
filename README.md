@@ -1,5 +1,5 @@
 
-# Introspective JavaScript - JavaScript Coding Notebook built with React, TypeScript, and Redux
+# Indepth JavaScript - JavaScript Coding Notebook built with React, TypeScript, and Redux
 
 This coding notebook is the JavaScript equivalent of the Jupyter Python Notebook. You can add multiple code cells, add code to the cells, and preview the output in the adjacent preview window. You can also add a markdown cells to take notes, with a preview window included for each cell.
 
