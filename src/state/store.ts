@@ -8,6 +8,13 @@ export const store = createStore(reducers, {}, applyMiddleware(thunk));
 
 // testing reducer
 
+store.dispatch({
+  type: ActionType.INSERT_CELL_AFTER,
+  payload: {
+    id: null,
+    type: 'text',
+  },
+});
 
 store.dispatch({
   type: ActionType.INSERT_CELL_AFTER,
@@ -64,10 +71,29 @@ if (cellId) store.dispatch(updateCell(cellId, app));
 
 console.log(store.getState());
 
-const markdown = `# Sample React Counter App
+const markdown = `
+# Jupyter style Coding Notebook for JavaScript (Full Details: [GitHub](https://github.com/apmfree78/jbook/blob/master/README.md))
 
-Styled with Bulma and Flexbox`;
+- Allows you to add Multiple Coding and Markdown Cells
+- Each cell has a preview window. 
+- Any variable, object, or React component created in 1 cell is ascessible in all subsequent cells.
+- **Import any npm package using standard ES6 import statement at to of cell**
+ 
+### *Use the \`show()\` to display any variable, object, JSX, or React component to the adjacent preview window.*
+
+## => You can Click on THIS cell to edit the Markdown...Try it!
+`;
 
 const markdownId: string | undefined = store.getState().cells?.order[0];
 
 if (markdownId) store.dispatch(updateCell(markdownId, markdown));
+
+const markdown2 = `
+## Sample React Counter App Above...
+
+See Sample React App in Above Code Cell. Styled with Bulma and Flexbox.
+`;
+
+const markdownId2: string | undefined = store.getState().cells?.order[2];
+
+if (markdownId2) store.dispatch(updateCell(markdownId2, markdown2));
