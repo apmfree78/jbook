@@ -13,7 +13,7 @@ I use ESBuild to quickly transpile and bundle code inputted by user in code cell
 
 *Also user can import almost any npm module by placing `import` statement in the code cell.  You can `import React from 'react'` or any other npm module you may need.*
 
-The npm imports are handled with a custom ESBuild plugins that checks the input code for import statements, and uses Unpkg to obtain the npm package.
+The npm imports are handled with a custom ESBuild plugins that checks the input code for import statements, and uses Unpkg to obtain the npm package. The npm packages are cached to the browser (using localForage), to improve performance.
 
 ## Secure Code Sandbox using an iframe
 
