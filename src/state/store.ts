@@ -72,12 +72,12 @@ if (cellId) store.dispatch(updateCell(cellId, app));
 console.log(store.getState());
 
 const markdown = `
-# Jupyter style Coding Notebook for JavaScript (Full Details: [GitHub](https://github.com/apmfree78/jbook/blob/master/README.md))
+# Jupyter style Coding Notebook for JavaScript (Full Details: [GitHub](https://github.com/apmfree78/jbook))
 
-- Allows you to add Multiple Coding and Markdown Cells
+- Allows you to add Multiple Coding and Markdown Cells.
 - Each cell has a preview window. 
 - Any variable, object, or React component created in 1 cell is ascessible in all subsequent cells.
-- **Import any npm package using standard ES6 import statement at to of cell**
+- **Import any npm package using standard ES6 import statement at top of cell**
  
 ### *Use the \`show()\` to display any variable, object, JSX, or React component to the adjacent preview window.*
 
